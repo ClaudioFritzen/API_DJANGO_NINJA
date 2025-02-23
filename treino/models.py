@@ -22,3 +22,14 @@ class Aluno(models.Model):
 
     def __str__(self):
         return self.nome
+    
+
+
+## Aulas Concluidas
+class AulasConcluidas(models.Model):
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    data_aula = models.DateField()
+    faixa = models.CharField(max_length=1, choices=faixa_choices, default='B')  # B = Branca
+
+    def __str__(self):
+        return f"{self.aluno} - {self.data_aula}"
