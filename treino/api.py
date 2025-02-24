@@ -94,7 +94,8 @@ def aulas_realizada(request, aulas_realizada_schema: AulasRealizadaSchema):
         raise HttpError(400, "Aluno não encontrado")
 
     aluno = Aluno.objects.get(email=email_aluno)
-    faixa_atual = aluno.get_faixa_display()
+    faixa_atual = aluno.faixa
+   # faixa_atual = aluno.get_faixa_display() # retorno a faixa do aluno "Branca" "Azul" "Roxa" "Marrom" "Preta"
 
     for _ in range(0, qtd_aulas):
         ac = AulasConcluidas(
