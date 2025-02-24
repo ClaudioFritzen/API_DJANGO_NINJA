@@ -84,7 +84,7 @@ def progresso_aluno(request, email_aluno: str):
 @treino_router.post('/aulas_realizada/', response={200: str})
 def aulas_realizada(request, aulas_realizada_schema: AulasRealizadaSchema):
     email_aluno = aulas_realizada_schema.dict()['email_aluno']
-    qtd_aulas = aulas_realizada_schema.dict()['qtd']
+    qtd_aulas = aulas_realizada_schema.dict()['qtd_aulas']
 
     # validando os dados
     if qtd_aulas <= 0:
@@ -101,10 +101,10 @@ def aulas_realizada(request, aulas_realizada_schema: AulasRealizadaSchema):
             aluno=aluno,
             faixa_atual=faixa_atual
         )
-
         ac.save()
 
     return 200, "Aulas registradas com sucesso"
+
 
 
 @treino_router.get('/alunos/{aluno_id}', response=AlunoSchema)

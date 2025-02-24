@@ -63,7 +63,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Banco de dados
+""" # Banco de dados - Utilize SQLite3 para desenvolvimento
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+} """
+
+# Banco de dados para produção
 DATABASE_URL = os.getenv('DATABASE_URL')
 print("DATABASE_URL:", DATABASE_URL)
 
