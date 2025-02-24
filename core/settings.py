@@ -16,7 +16,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['api-django-ninja.onrender.com/', 'localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['api-django-ninja.onrender.com/', 'localhost', '127.0.0.1','api-django-ninja.onrender.com/api']
+ALLOWED_HOSTS = ['api-django-ninja.onrender.com', 'localhost', '127.0.0.1']
+
 
 # Aplicativos instalados
 INSTALLED_APPS = [
