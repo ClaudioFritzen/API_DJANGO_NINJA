@@ -8,11 +8,19 @@ from typing import List
 from datetime import datetime, date
 
 from .graduacao import order_belt, calculate_lesson_to_graduate
+import re
 
 treino_router = Router()
 
 
-@treino_router.post("", response={200: AlunoSchema})
+## regex para validar email
+
+def is_valid_email(email: str) -> bool:
+    regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    return re.match(regex, email) is not None
+
+
+@treino_router.post("/cadastrar_novo_aluno/", response={200: AlunoSchema})
 def get_treino(request, aluno_schema: AlunoSchema):
 
     # pegando os dados da requisição
@@ -21,9 +29,14 @@ def get_treino(request, aluno_schema: AlunoSchema):
     faixa = aluno_schema.dict()['faixa']
     data_nascimento = aluno_schema.dict()['data_nascimento']
 
+    # validando o email
+    if not is_valid_email(email):
+        raise HttpError(400, "Email inválido")
+    
     # validando os dados
     if Aluno.objects.filter(email=email).exists():
         raise HttpError(400, "Email já cadastrado")
+    
     aluno = Aluno(nome=nome, email=email, faixa=faixa,
                   data_nascimento=data_nascimento)
 
@@ -107,12 +120,6 @@ def get_aluno(request, aluno_id: str):
     except Aluno.DoesNotExist:
         raise HttpError(404, "Aluno não encontrado")
 
-
-
-
-def is_valid_email(email: str) -> bool:
-    regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    return re.match(regex, email) is not None
 
 @treino_router.put('/aulas/{aluno_id}', response=AlunoSchema)
 def update_aluno(request, aluno_id: int, aluno_data: AlunoSchema):
