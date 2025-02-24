@@ -12,7 +12,7 @@ from .graduacao import order_belt, calculate_lesson_to_graduate
 treino_router = Router()
 
 
-@treino_router.post("", response={200: AlunoSchema})
+@treino_router.post("/cadastrar_novo_aluno/", response={200: AlunoSchema})
 def get_treino(request, aluno_schema: AlunoSchema):
 
     # pegando os dados da requisição
