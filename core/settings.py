@@ -71,12 +71,21 @@ DATABASES = {
     }
 } """
 
+""" # Banco de dados para produção com neon
+DATABASES = {   
+    'default':dj_database_url.parse (
+        url=os.getenv('DATABASE_URL',""),
+        conn_max_age=600, conn_health_check=True,
+    )
+} """
+
+
 # Banco de dados para produção
-DATABASE_URL = os.getenv('DATABASE_URL')
-print("DATABASE_URL:", DATABASE_URL)
+DATABASE_URL_NEON = os.getenv('DATABASE_URL_NEON')
+print("DATABASE_URL_NEON:", DATABASE_URL_NEON)
 
 DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL)
+    'default': dj_database_url.parse(DATABASE_URL_NEON)
 }
 
 # Forçar o psycopg2 a usar UTF-8 (já adicionado na string de conexão)
