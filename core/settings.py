@@ -63,13 +63,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-""" # Banco de dados - Utilize SQLite3 para desenvolvimento
+# Banco de dados - Utilize SQLite3 para desenvolvimento
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-} """
+}
 
 """ # Banco de dados para produção com neon
 DATABASES = {   
@@ -80,7 +80,7 @@ DATABASES = {
 } """
 
 
-# Banco de dados para produção
+""" # Banco de dados para produção
 DATABASE_URL_NEON = os.getenv('DATABASE_URL_NEON')
 print("DATABASE_URL_NEON:", DATABASE_URL_NEON)
 
@@ -91,7 +91,7 @@ DATABASES = {
 # Forçar o psycopg2 a usar UTF-8 (já adicionado na string de conexão)
 DATABASES['default']['OPTIONS'] = {
     'options': '-c client_encoding=utf8'
-}
+} """
 
 # Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
@@ -120,3 +120,10 @@ STATIC_URL = 'static/'
 
 # Tipo de campo de chave primária padrão
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+## Configuração do Pytest
+# settings.py
+TEST_RUNNER = "pytest_django.runner.PytestTestRunner"
+
+

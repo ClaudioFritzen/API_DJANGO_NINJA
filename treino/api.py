@@ -153,3 +153,28 @@ def update_aluno(request, aluno_id: int, aluno_data: AlunoSchema):
 
     print(idade)
     return response_data
+
+
+## Função para editar um aluno
+@treino_router.put("atualizar_aluno/{id}/", response={200: AlunoSchema})
+def atualizar_aluno(request, id: int, aluno_schema: AlunoSchema):
+    try:
+        aluno = Aluno.objects.get(id=id)
+
+
+        for campo, valor in aluno_schema.dict().items():
+            setattr(aluno, campo, valor) # Atualiza os campos do aluno com os dados do schema
+        aluno.save()  # Salva as alterações no banco de dados
+        return aluno
+    except Aluno.DoesNotExist:
+        raise HttpError(404, "Aluno não encontrado")
+    
+
+@treino_router.delete("deletar_aluno/{id}/", response={204: None})
+def deletar_aluno(request, id: int):
+    try:
+        aluno = Aluno.objects.get(id=id)
+        aluno.delete()
+        return 204, "Aluno deletado com sucesso"
+    except Aluno.DoesNotExist:
+        raise HttpError(404, "Aluno não encontrado")
